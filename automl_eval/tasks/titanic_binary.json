@@ -1,0 +1,79 @@
+{
+  "task_id": "titanic_binary",
+  "dataset_path": "automl_eval/tasks/titanic.csv",
+  "target_column": "Survived",
+  "task_type": "binary_classification",
+  "metric": "roc_auc",
+  "description": "Predict passenger survival on the Titanic. Binary classification task. Target: Survived (0 = No, 1 = Yes). Use the provided train data to build a model and predict on validation set.",
+  "plan_checklist": [
+    {
+      "id": "handle_missing",
+      "description": "Plan mentions handling missing values (Age, Cabin, Embarked have nulls)",
+      "keywords": ["missing", "null", "fillna", "imput", "nan"],
+      "weight": 1.0,
+      "required": true
+    },
+    {
+      "id": "encode_categorical",
+      "description": "Plan mentions encoding categorical features (Sex, Embarked, Cabin)",
+      "keywords": ["encod", "one-hot", "onehot", "label_encod", "target_encod", "dummy", "categorical"],
+      "weight": 1.0,
+      "required": true
+    },
+    {
+      "id": "feature_engineering",
+      "description": "Plan mentions creating new features (FamilySize, Title, etc.)",
+      "keywords": ["feature", "familysize", "title", "extract", "new column"],
+      "weight": 1.0,
+      "required": false
+    },
+    {
+      "id": "model_selection",
+      "description": "Plan mentions specific model(s) to try",
+      "keywords": ["lightgbm", "xgboost", "catboost", "random forest", "logistic", "gradient boost"],
+      "weight": 1.0,
+      "required": true
+    },
+    {
+      "id": "cross_validation",
+      "description": "Plan mentions cross-validation or train/valid split strategy",
+      "keywords": ["cross-val", "cv", "kfold", "stratified", "validation"],
+      "weight": 0.8,
+      "required": false
+    },
+    {
+      "id": "scaling",
+      "description": "Plan mentions scaling/normalization of numeric features",
+      "keywords": ["scale", "scaler", "normalize", "standardize"],
+      "weight": 0.5,
+      "required": false
+    },
+    {
+      "id": "metric_awareness",
+      "description": "Plan mentions the target metric (ROC AUC) or evaluation approach",
+      "keywords": ["roc", "auc", "metric"],
+      "weight": 0.7,
+      "required": false
+    }
+  ],
+  "time_budget_seconds": 300.0,
+  "max_steps": 15,
+  "oracle_score": 0.87,
+  "baseline_score": 0.5,
+  "metadata": {
+    "evaluation_aspects": ["missing_values", "categorical_encoding", "feature_engineering", "model_selection", "data_overview"],
+    "column_descriptions": {
+      "PassengerId": "Unique passenger ID",
+      "Pclass": "Ticket class (1=1st, 2=2nd, 3=3rd)",
+      "Name": "Passenger name",
+      "Sex": "Gender (male/female)",
+      "Age": "Age in years (has missing values)",
+      "SibSp": "Number of siblings/spouses aboard",
+      "Parch": "Number of parents/children aboard",
+      "Ticket": "Ticket number",
+      "Fare": "Passenger fare",
+      "Cabin": "Cabin number (many missing values)",
+      "Embarked": "Port of embarkation (C=Cherbourg, Q=Queenstown, S=Southampton)"
+    }
+  }
+}

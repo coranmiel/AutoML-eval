@@ -1,0 +1,15 @@
+[project]
+name = "agentenv_automl"
+version = "0.0.1"
+description = "AutoML evaluation environment for AgentGym"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "requests",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+
+[project.scripts]
+automl-eval-env = "agentenv_automl:launch"

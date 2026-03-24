@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.cursor/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# External repos (cloned by setup scripts, not part of this project)
+dseval/
+AgentGym/
+AgentGym-RL/
+
+# Cursor metadata
+Users-*/
+
+# Logs and results
+*.log
+results/
+*.jsonl
