@@ -284,7 +284,3 @@ run_server.py                   # Entry point: starts the automl_eval HTTP serve
 demo_episode.py                 # Standalone demo of a full episode
 requirements.txt                # Python dependencies
 ```
-
-## License
-
-MIT
