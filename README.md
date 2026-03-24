@@ -2,21 +2,21 @@
 
 An RL environment for evaluating LLM-based AutoML agents. The environment presents a dataset and ML task, then evaluates the agent's plan, code quality, feature engineering, model selection, and final predictions through a comprehensive suite of 21 validators.
 
-Designed for integration with [AgentGym-RL](https://github.com/WooooDyy/AgentGym-RL) — a framework for training and evaluating LLM-based agents across diverse environments.
+Designed for integration with [AgentGym-RL](https://github.com/WooooDyy/AgentGym-RL) – a framework for training and evaluating LLM-based agents across diverse environments.
 
 ## Architecture
 
 ```
-┌─────────────────┐     HTTP      ┌──────────────────────┐     HTTP      ┌─────────────────┐
-│   AgentGym-RL   │ ──────────> │  agentenv_automl     │ ──────────> │  automl_eval    │
-│   (LLM Agent)   │  port 8080   │  (proxy server)      │  port 8766   │  (RL env core)  │
-│                 │ <────────── │                      │ <────────── │                 │
-└─────────────────┘   actions    └──────────────────────┘   rewards    └─────────────────┘
+┌─────────────────┐     HTTP      ┌──────────────────────┐     HTTP    ┌─────────────────┐
+│   AgentGym-RL   │ ──────────>   │  agentenv_automl     │ ──────────> │  automl_eval    │
+│   (LLM Agent)   │  port 8080    │  (proxy server)      │  port 8766  │  (RL env core)  │
+│                 │ <──────────   │                      │ <────────── │                 │
+└─────────────────┘   actions     └──────────────────────┘   rewards   └─────────────────┘
                       + obs                                + state
 ```
 
 **Three layers:**
-1. **`automl_eval/`** — Core RL environment: tasks, sessions, sandbox, validators, reward calculation
+1. **`automl_eval/`** – Core RL environment: tasks, sessions, sandbox, validators, reward calculation
 2. **`agentenv_automl/`** — FastAPI proxy that translates AgentGym HTTP protocol to automl_eval calls
 3. **`agentgym_integration/`** — Client code and setup script to register the environment in AgentGym-RL
 
