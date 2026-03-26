@@ -117,6 +117,18 @@ Tests for **IterativeCycleValidator** and **BaselineComparisonValidator**.
 | `test_baseline_not_done` | Before FINAL_SUBMIT → skip |
 | `test_full_pipeline` | End-to-end: cycle validators visible in feedback |
 
+### `test_step_ordering.py` — 5 tests
+
+Tests that verify the correct ordering of operations inside `environment.step()`: `session.done` and `session.record_step()` must be set **before** validators run.
+
+| Test | What it checks |
+|------|---------------|
+| `test_baseline_runs_on_final_submit` | BaselineComparison actually computes baseline on FINAL_SUBMIT (not skipped) |
+| `test_cycle_count_visible_to_validators` | IterativeCycleValidator sees cycle_count from the current step |
+| `test_metric_history_available_to_validators` | metric_history includes the current step's metric when validators run |
+| `test_current_step_incremented_before_validators` | current_step is incremented before validators execute |
+| `test_done_flag_before_baseline_validator` | Monkey-patches BaselineComparison to verify session.done=True at validate time |
+
 ### `test_integration.py` — 3 Automated Integration Tests
 
 **Does not require manual server setup.** Automatically starts both `automl_eval` and `agentenv_automl` servers, runs tests, and shuts them down.

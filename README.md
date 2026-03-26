@@ -43,7 +43,7 @@ python tests/test_model_validators.py
 python tests/test_cycle_validators.py
 ```
 
-All 58 unit tests should pass. See `tests/TESTING.md` for details.
+All 63 unit tests should pass. See `tests/TESTING.md` for details.
 
 ### 3. Run the Integration Test (auto-starts servers)
 
@@ -269,13 +269,14 @@ agentgym_integration/           # AgentGym-RL registration
 ├── setup_agentgym.sh           # One-command setup: clone, install, patch AgentGym-RL
 └── eval_titanic.json           # Evaluation manifest for Titanic task
 
-tests/                          # Test suite (61 tests total)
+tests/                          # Test suite (66 tests total)
 ├── TESTING.md                  # Testing guide
 ├── test_new_validators.py      # 9 tests: backtracking, reproducibility, efficiency
 ├── test_data_quality_validators.py  # 12 tests: insights, correlation, missing, distribution
 ├── test_pipeline_validators.py # 10 tests: feature pipeline, duplicates, leakage model
 ├── test_model_validators.py    # 15 tests: importance, hyperparams, model choice, split
 ├── test_cycle_validators.py    # 12 tests: iterative cycles, baseline comparison
+├── test_step_ordering.py       # 5 tests: environment.step() ordering correctness
 ├── test_integration.py         # 3 integration tests: auto-starts servers, full chain
 ├── test_client.py              # Manual HTTP test (requires running servers)
 └── test_agentgym_chain.py      # Manual chain test (requires running servers)

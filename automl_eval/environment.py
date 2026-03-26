@@ -151,7 +151,17 @@ class AutoMLEnvironment:
         return "\n".join(parts)
 
     def step(self, content: str) -> StepOutput:
-        """Execute a single agent action."""
+        """Execute a single agent action.
+
+        Order of operations (important for validator correctness):
+          1. Execute the action (sandbox, best_metric on FINAL_SUBMIT).
+          2. Determine done flag — validators like BaselineComparison
+             check session.done to decide whether to run.
+          3. Record the step — updates cycle_count, metric_history,
+             current_step so validators see the freshest state.
+          4. Run validators and compute reward.
+          5. Back-patch reward into the already-recorded StepRecord.
+        """
         self._check_active()
         session = self._session  # type: ignore[assignment]
 
@@ -160,11 +170,8 @@ class AutoMLEnvironment:
 
         exec_result = self._execute_action(parsed, session)
 
-        validation_results = [v.validate(session) for v in self.validators]
-
-        perf_score = self._current_performance(session)
-
-        breakdown = self.reward_calc.compute(perf_score, validation_results)
+        done = self._check_done(session, parsed)
+        session.done = done
 
         step_record = StepRecord(
             step_idx=session.current_step,
@@ -172,7 +179,7 @@ class AutoMLEnvironment:
             action_text=parsed.raw_text,
             state_before=state_before,
             state_after=session.state_summary(),
-            reward=breakdown.final_reward,
+            reward=0.0,
             execution_success=exec_result.success,
             error_message=exec_result.error,
             metric_value=session.best_metric,
@@ -180,8 +187,11 @@ class AutoMLEnvironment:
         )
         session.record_step(step_record)
 
-        done = self._check_done(session, parsed)
-        session.done = done
+        validation_results = [v.validate(session) for v in self.validators]
+        perf_score = self._current_performance(session)
+        breakdown = self.reward_calc.compute(perf_score, validation_results)
+
+        step_record.reward = breakdown.final_reward
 
         state_text = self._format_step_response(session, exec_result, breakdown, done)
 

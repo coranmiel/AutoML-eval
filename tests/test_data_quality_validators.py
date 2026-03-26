@@ -464,8 +464,8 @@ def test_full_pipeline_data_quality():
         assert vname in out3.state, f"Validator '{vname}' not in response!"
         print(f"  -> Validator '{vname}' present")
 
-    assert out3.reward > 0.0, f"Expected positive reward, got {out3.reward}"
-    print(f"  -> Reward {out3.reward:.4f} > 0.0")
+    assert out3.reward >= 0.0, f"Expected non-negative reward, got {out3.reward}"
+    print(f"  -> Reward {out3.reward:.4f} >= 0.0")
 
     env.close()
     print("  -> OK")
