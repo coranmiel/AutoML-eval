@@ -34,3 +34,6 @@ Users-*/
 *.log
 results/
 *.jsonl
+
+# Local documents
+Research paper.tex
