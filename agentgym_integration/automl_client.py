@@ -28,26 +28,14 @@ class AutoMLEnvClient(BaseEnvClient):
             {
                 "from": "human",
                 "loss": None,
-                "value": (
-                    "You are an expert AutoML agent. You will be given a dataset and a "
-                    "machine learning task. You need to:\n"
-                    "1. First submit a PLAN describing your approach.\n"
-                    "2. Then write CODE to preprocess data, engineer features, and train a model.\n"
-                    "3. Finally FINAL_SUBMIT your predictions.\n\n"
-                    "Your output must strictly follow this format:\n"
-                    '"Thought:\nyour thoughts.\n\nAction:\nACTION: <type>\n<body>"\n\n'
-                    "Available action types: PLAN, FEATURE_ENGINEERING, MODEL, CODE, CODE_FIX, FINAL_SUBMIT\n\n"
-                    "For CODE actions, wrap your code in ```python ... ``` blocks.\n"
-                    "Mention specific techniques in your PLAN (e.g. handle missing values, "
-                    "encode categoricals, model name like RandomForest/XGBoost).\n"
-                ),
+                "value": "",
             }
         ),
         ConversationMessage(
             {
                 "from": "gpt",
                 "loss": False,
-                "value": "OK. I'll follow your instructions and try my best to solve the task.",
+                "value": "",
             }
         ),
     )

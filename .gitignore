@@ -26,6 +26,8 @@ Thumbs.db
 dseval/
 AgentGym/
 AgentGym-RL/
+DS-Star_impl/
+workspace/
 
 # Cursor metadata
 Users-*/
@@ -37,3 +39,5 @@ results/
 
 # Local documents
 Research paper.tex
+
+.env

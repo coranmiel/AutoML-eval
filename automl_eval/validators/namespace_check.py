@@ -83,7 +83,7 @@ class NamespaceCheckValidator(BaseValidator):
             checks_total += 1
             x = ns["X_train"]
             if hasattr(x, "select_dtypes"):
-                non_numeric = x.select_dtypes(exclude=[np.number]).columns.tolist()
+                non_numeric = x.select_dtypes(exclude=["number", "bool"]).columns.tolist()
                 if non_numeric:
                     issues.append(
                         f"X_train has non-numeric columns: {non_numeric[:5]}"
